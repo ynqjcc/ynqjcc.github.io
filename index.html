@@ -2,180 +2,208 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <!-- 响应式视口设置 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>网多导航站</title>
-  <!-- 引入 Bootstrap 5 CSS CDN -->
+  <title>实用导航站</title>
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- 引入图标库 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <!-- 图标 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <style>
-    /* 自定义样式 */
     html {
-      scroll-behavior: smooth; /* 平滑滚动效果 */
+      scroll-behavior: smooth;
     }
-    .navbar {
-      backdrop-filter: blur(8px); /* 导航栏毛玻璃效果 */
+    .nav-link {
+      cursor: pointer;
     }
-    .hero {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      margin-top: -76px; /* 抵消导航高度 */
-      padding-top: 76px;
+    .card {
+      transition: transform 0.2s;
     }
-    section {
-      padding: 80px 0;
-    }
-    .feature-card {
-      transition: transform 0.3s;
-    }
-    .feature-card:hover {
-      transform: translateY(-8px);
+    .card:hover {
+      transform: translateY(-3px);
     }
   </style>
 </head>
 <body>
 
-  <!-- 顶部固定导航栏 -->
-  <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#home">我的网站</a>
-      
-      <!-- 移动端折叠菜单按钮 -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link active" href="#home">首页</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#features">功能</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">关于</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">联系我们</a>
-          </li>
-        </ul>
-      </div>
+<!-- 顶部导航 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">实用导航站</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="#movie">在线影视</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#game">游戏资源</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#web">常用网站</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
-  <!-- 首页横幅区域 -->
-  <section id="home" class="hero text-center">
-    <div class="container">
-      <h1 class="display-3 fw-bold mb-4">欢迎来到我的网站</h1>
-      <p class="lead mb-5">基于 Bootstrap 5 构建的现代化单页面导航站点</p>
-      <a href="#features" class="btn btn-light btn-lg px-5">开始浏览</a>
-    </div>
-  </section>
+<!-- 头部 -->
+<header class="bg-light text-center py-5 pt-6 mt-5">
+  <div class="container">
+    <h1 class="display-6 fw-bold">实用网址导航</h1>
+    <p class="text-muted">一站式聚合 影视、游戏、常用工具</p>
+  </div>
+</header>
 
-  <!-- 功能介绍区域 -->
-  <section id="features" class="bg-light">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">核心功能</h2>
-        <p class="text-muted">为你提供优质的使用体验</p>
-      </div>
-
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card feature-card border-0 shadow p-4 text-center h-100">
-            <div class="display-5 text-primary mb-3">
-              <i class="bi bi-lightning-charge"></i>
-            </div>
-            <h4 class="fw-bold">快速响应</h4>
-            <p class="text-muted">页面加载迅速，适配所有设备尺寸</p>
+<!-- 在线影视 -->
+<section id="movie" class="py-5">
+  <div class="container">
+    <h3 class="mb-4 border-start border-primary border-4 ps-2">
+      <i class="bi-film"></i> 在线影视
+    </h3>
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-play-btn display-6 text-primary"></i>
+            <h6 class="mt-2">影视大全</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
           </div>
         </div>
-
-        <div class="col-md-4">
-          <div class="card feature-card border-0 shadow p-4 text-center h-100">
-            <div class="display-5 text-primary mb-3">
-              <i class="bi bi-palette"></i>
-            </div>
-            <h4 class="fw-bold">精美设计</h4>
-            <p class="text-muted">现代化UI设计，视觉效果舒适</p>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-tv display-6 text-danger"></i>
+            <h6 class="mt-2">追剧网</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
           </div>
         </div>
-
-        <div class="col-md-4">
-          <div class="card feature-card border-0 shadow p-4 text-center h-100">
-            <div class="display-5 text-primary mb-3">
-              <i class="bi bi-shield-check"></i>
-            </div>
-            <h4 class="fw-bold">安全稳定</h4>
-            <p class="text-muted">基于成熟框架，运行稳定可靠</p>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-camera-reels display-6 text-success"></i>
+            <h6 class="mt-2">电影天堂</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-display display-6 text-warning"></i>
+            <h6 class="mt-2">动漫影视</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 关于我们区域 -->
-  <section id="about">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-          <img src="https://picsum.photos/600/400" class="img-fluid rounded shadow" alt="关于我们">
-        </div>
-        <div class="col-lg-6">
-          <h2 class="fw-bold mb-4">关于我们</h2>
-          <p class="lead">我们专注于使用前沿技术构建优质的网页应用，致力于为用户提供简洁、高效、美观的产品体验。</p>
-          <p>依托 Bootstrap 强大的框架能力，我们能够快速开发出响应式、跨设备兼容的现代化网站。</p>
-          <a href="#contact" class="btn btn-primary mt-3">联系我们</a>
+<!-- 游戏资源 -->
+<section id="game" class="py-5 bg-light">
+  <div class="container">
+    <h3 class="mb-4 border-start border-primary border-4 ps-2">
+      <i class="bi-controller"></i> 游戏资源
+    </h3>
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-joystick display-6 text-primary"></i>
+            <h6 class="mt-2">单机游戏</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- 联系我们区域 -->
-  <section id="contact" class="bg-light">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="fw-bold">联系我们</h2>
-        <p class="text-muted">有任何问题，欢迎随时联系</p>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-pc-display display-6 text-info"></i>
+            <h6 class="mt-2">Steam 相关</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
+        </div>
       </div>
-
-      <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
-          <form>
-            <div class="mb-3">
-              <label class="form-label">姓名</label>
-              <input type="text" class="form-control" placeholder="请输入您的姓名">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">邮箱</label>
-              <input type="email" class="form-control" placeholder="请输入您的邮箱">
-            </div>
-            <div class="mb-3">
-              <label class="form-label">留言内容</label>
-              <textarea class="form-control" rows="4" placeholder="请输入留言内容"></textarea>
-            </div>
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary btn-lg px-5">提交</button>
-            </div>
-          </form>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-star display-6 text-warning"></i>
+            <h6 class="mt-2">手游资源</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-download display-6 text-success"></i>
+            <h6 class="mt-2">游戏下载</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- 底部 footer -->
-  <footer class="bg-dark text-white text-center py-4">
-    <div class="container">
-      <p class="mb-0">© 2025 我的网站 | 基于 Bootstrap 5 构建</p>
+<!-- 常用网站 -->
+<section id="web" class="py-5">
+  <div class="container">
+    <h3 class="mb-4 border-start border-primary border-4 ps-2">
+      <i class="bi-globe"></i> 常用网站
+    </h3>
+    <div class="row g-3">
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-search display-6 text-primary"></i>
+            <h6 class="mt-2">搜索引擎</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-cloud-arrow-down display-6 text-info"></i>
+            <h6 class="mt-2">网盘搜索</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-tools display-6 text-success"></i>
+            <h6 class="mt-2">在线工具</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card text-center h-100">
+          <div class="card-body">
+            <i class="bi-music-note-beamed display-6 text-danger"></i>
+            <h6 class="mt-2">音乐在线</h6>
+            <a href="#" class="stretched-link" target="_blank"></a>
+          </div>
+        </div>
+      </div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- 引入 Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- 底部 -->
+<footer class="bg-dark text-white text-center py-3">
+  <div class="container">
+    <small>实用导航站 &copy; 2025</small>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
