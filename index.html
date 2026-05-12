@@ -1,209 +1,118 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>实用导航站</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- 图标 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    .nav-link {
-      cursor: pointer;
-    }
-    .card {
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>太阳系行星环绕动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 画布样式：全屏黑色背景 */
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        canvas {
+            border: 1px solid #222;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000 70%);
+        }
+    </style>
 </head>
 <body>
+    <canvas id="solarSystem"></canvas>
 
-<!-- 顶部导航 -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-  <div class="container">
-    <a class="navbar-brand" href="#">实用导航站</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="#movie">在线影视</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#game">游戏资源</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#web">常用网站</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+    <script>
+        // 获取画布和上下文
+        const canvas = document.getElementById('solarSystem');
+        const ctx = canvas.getContext('2d');
 
-<!-- 头部 -->
-<header class="bg-light text-center py-5 pt-6 mt-5">
-  <div class="container">
-    <h1 class="display-6 fw-bold">实用网址导航</h1>
-    <p class="text-muted">一站式聚合 影视、游戏、常用工具</p>
-  </div>
-</header>
+        // 设置画布尺寸
+        canvas.width = 1000;
+        canvas.height = 800;
 
-<!-- 在线影视 -->
-<section id="movie" class="py-5">
-  <div class="container">
-    <h3 class="mb-4 border-start border-primary border-4 ps-2">
-      <i class="bi-film"></i> 在线影视
-    </h3>
-    <div class="row g-3">
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-play-btn display-6 text-primary"></i>
-            <h6 class="mt-2">影视大全</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-tv display-6 text-danger"></i>
-            <h6 class="mt-2">追剧网</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-camera-reels display-6 text-success"></i>
-            <h6 class="mt-2">电影天堂</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-display display-6 text-warning"></i>
-            <h6 class="mt-2">动漫影视</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        // 太阳系中心坐标（画布中心）
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
 
-<!-- 游戏资源 -->
-<section id="game" class="py-5 bg-light">
-  <div class="container">
-    <h3 class="mb-4 border-start border-primary border-4 ps-2">
-      <i class="bi-controller"></i> 游戏资源
-    </h3>
-    <div class="row g-3">
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-joystick display-6 text-primary"></i>
-            <h6 class="mt-2">单机游戏</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-pc-display display-6 text-info"></i>
-            <h6 class="mt-2">Steam 相关</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-star display-6 text-warning"></i>
-            <h6 class="mt-2">手游资源</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-download display-6 text-success"></i>
-            <h6 class="mt-2">游戏下载</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        // 行星数据配置：名称、轨道半径、大小、颜色、公转速度、当前角度
+        const planets = [
+            { name: '水星', radius: 80, size: 6, color: '#a6a6a6', speed: 0.04, angle: 0 },
+            { name: '金星', radius: 130, size: 8, color: '#ffc649', speed: 0.03, angle: 0 },
+            { name: '地球', radius: 180, size: 9, color: '#4287f5', speed: 0.02, angle: 0 },
+            { name: '火星', radius: 240, size: 7, color: '#e65c3c', speed: 0.015, angle: 0 }
+        ];
 
-<!-- 常用网站 -->
-<section id="web" class="py-5">
-  <div class="container">
-    <h3 class="mb-4 border-start border-primary border-4 ps-2">
-      <i class="bi-globe"></i> 常用网站
-    </h3>
-    <div class="row g-3">
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-search display-6 text-primary"></i>
-            <h6 class="mt-2">搜索引擎</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-cloud-arrow-down display-6 text-info"></i>
-            <h6 class="mt-2">网盘搜索</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-tools display-6 text-success"></i>
-            <h6 class="mt-2">在线工具</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-md-4 col-lg-3">
-        <div class="card text-center h-100">
-          <div class="card-body">
-            <i class="bi-music-note-beamed display-6 text-danger"></i>
-            <h6 class="mt-2">音乐在线</h6>
-            <a href="#" class="stretched-link" target="_blank"></a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        // 绘制太阳
+        function drawSun() {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 25, 0, Math.PI * 2);
+            // 太阳渐变效果
+            const sunGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 25);
+            sunGradient.addColorStop(0, '#fff566');
+            sunGradient.addColorStop(0.5, '#ffd000');
+            sunGradient.addColorStop(1, '#ff8c00');
+            ctx.fillStyle = sunGradient;
+            ctx.fill();
+            // 太阳光晕
+            ctx.shadowColor = '#ffd000';
+            ctx.shadowBlur = 40;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
 
-<!-- 底部 -->
-<footer class="bg-dark text-white text-center py-3">
-  <div class="container">
-    <small>实用导航站 &copy; 2025</small>
-  </div>
-</footer>
+        // 绘制行星轨道
+        function drawOrbit(radius) {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        // 绘制单个行星
+        function drawPlanet(planet) {
+            // 计算行星坐标（三角函数实现圆周运动）
+            const x = centerX + planet.radius * Math.cos(planet.angle);
+            const y = centerY + planet.radius * Math.sin(planet.angle);
+
+            ctx.beginPath();
+            ctx.arc(x, y, planet.size, 0, Math.PI * 2);
+            ctx.fillStyle = planet.color;
+            ctx.fill();
+
+            // 更新公转角度
+            planet.angle += planet.speed;
+        }
+
+        // 动画主循环
+        function animate() {
+            // 清空画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制太阳
+            drawSun();
+
+            // 遍历绘制所有轨道和行星
+            planets.forEach(planet => {
+                drawOrbit(planet.radius);
+                drawPlanet(planet);
+            });
+
+            // 持续渲染动画
+            requestAnimationFrame(animate);
+        }
+
+        // 启动动画
+        animate();
+    </script>
 </body>
 </html>
