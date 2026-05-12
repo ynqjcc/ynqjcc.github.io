@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>太阳系行星环绕动画</title>
+    <title>太阳系八大行星动画</title>
     <style>
         * {
             margin: 0;
@@ -11,7 +11,6 @@
             box-sizing: border-box;
         }
 
-        /* 画布样式：全屏黑色背景 */
         body {
             background: #000;
             display: flex;
@@ -22,97 +21,139 @@
         }
 
         canvas {
-            border: 1px solid #222;
             background: radial-gradient(circle at center, #1a1a2e 0%, #000 70%);
         }
     </style>
 </head>
 <body>
-    <canvas id="solarSystem"></canvas>
+<canvas id="solarSystem"></canvas>
 
-    <script>
-        // 获取画布和上下文
-        const canvas = document.getElementById('solarSystem');
-        const ctx = canvas.getContext('2d');
+<script>
+    const canvas = document.getElementById('solarSystem');
+    const ctx = canvas.getContext('2d');
 
-        // 设置画布尺寸
-        canvas.width = 1000;
-        canvas.height = 800;
+    // 画布尺寸
+    canvas.width = 1200;
+    canvas.height = 900;
 
-        // 太阳系中心坐标（画布中心）
-        const centerX = canvas.width / 2;
-        const centerY = canvas.height / 2;
+    // 中心坐标
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
 
-        // 行星数据配置：名称、轨道半径、大小、颜色、公转速度、当前角度
-        const planets = [
-            { name: '水星', radius: 80, size: 6, color: '#a6a6a6', speed: 0.04, angle: 0 },
-            { name: '金星', radius: 130, size: 8, color: '#ffc649', speed: 0.03, angle: 0 },
-            { name: '地球', radius: 180, size: 9, color: '#4287f5', speed: 0.02, angle: 0 },
-            { name: '火星', radius: 240, size: 7, color: '#e65c3c', speed: 0.015, angle: 0 }
-        ];
+    // 八大行星配置：轨道半径、大小、颜色、公转速度、角度
+    const planets = [
+        { name: '水星', radius: 70, size: 6, color: '#a6a6a6', speed: 0.04, angle: 0 },
+        { name: '金星', radius: 110, size: 9, color: '#ffc649', speed: 0.03, angle: 0 },
+        { name: '地球', radius: 150, size: 10, color: '#4287f5', speed: 0.02, angle: 0 },
+        { name: '火星', radius: 190, size: 8, color: '#e65c3c', speed: 0.015, angle: 0 },
+        { name: '木星', radius: 280, size: 22, color: '#daa06d', speed: 0.008, angle: 0 },
+        { name: '土星', radius: 360, size: 19, color: '#f0d080', speed: 0.006, angle: 0 },
+        { name: '天王星', radius: 420, size: 14, color: '#4fd0e7', speed: 0.004, angle: 0 },
+        { name: '海王星', radius: 470, size: 13, color: '#3d5af1', speed: 0.003, angle: 0 }
+    ];
 
-        // 绘制太阳
-        function drawSun() {
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, 25, 0, Math.PI * 2);
-            // 太阳渐变效果
-            const sunGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 25);
-            sunGradient.addColorStop(0, '#fff566');
-            sunGradient.addColorStop(0.5, '#ffd000');
-            sunGradient.addColorStop(1, '#ff8c00');
-            ctx.fillStyle = sunGradient;
-            ctx.fill();
-            // 太阳光晕
-            ctx.shadowColor = '#ffd000';
-            ctx.shadowBlur = 40;
-            ctx.fill();
-            ctx.shadowBlur = 0;
+    // 月球配置（绕地球旋转）
+    const moon = {
+        radius: 20,    // 月球轨道半径
+        size: 4,       // 月球大小
+        color: '#d0d0d0', // 月球颜色
+        speed: 0.1,    // 月球公转速度
+        angle: 0       // 初始角度
+    };
+
+    // 绘制太阳（带光晕）
+    function drawSun() {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 28, 0, Math.PI * 2);
+        const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, 28);
+        gradient.addColorStop(0, '#fff966');
+        gradient.addColorStop(0.6, '#ffcc00');
+        gradient.addColorStop(1, '#ff7700');
+        ctx.fillStyle = gradient;
+        ctx.shadowColor = '#ffcc00';
+        ctx.shadowBlur = 50;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+    }
+
+    // 绘制行星轨道
+    function drawOrbit(radius) {
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = '#333';
+        ctx.stroke();
+    }
+
+    // 绘制土星环（专属特效）
+    function drawSaturnRing(x, y, radius) {
+        ctx.beginPath();
+        ctx.ellipse(x, y, radius, radius / 2.5, 0, 0, Math.PI * 2);
+        ctx.strokeStyle = '#d4b878';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+    }
+
+    // 绘制单个行星
+    function drawPlanet(planet) {
+        const x = centerX + planet.radius * Math.cos(planet.angle);
+        const y = centerY + planet.radius * Math.sin(planet.angle);
+
+        // 绘制行星
+        ctx.beginPath();
+        ctx.arc(x, y, planet.size, 0, Math.PI * 2);
+        ctx.fillStyle = planet.color;
+        ctx.fill();
+
+        // 土星专属光环
+        if (planet.name === '土星') {
+            drawSaturnRing(x, y, planet.size + 8);
         }
 
-        // 绘制行星轨道
-        function drawOrbit(radius) {
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-            ctx.strokeStyle = '#333';
-            ctx.lineWidth = 1;
-            ctx.stroke();
+        // 地球 => 绘制月球
+        if (planet.name === '地球') {
+            drawMoon(x, y);
         }
 
-        // 绘制单个行星
-        function drawPlanet(planet) {
-            // 计算行星坐标（三角函数实现圆周运动）
-            const x = centerX + planet.radius * Math.cos(planet.angle);
-            const y = centerY + planet.radius * Math.sin(planet.angle);
+        // 更新公转角度
+        planet.angle += planet.speed;
+    }
 
-            ctx.beginPath();
-            ctx.arc(x, y, planet.size, 0, Math.PI * 2);
-            ctx.fillStyle = planet.color;
-            ctx.fill();
+    // 绘制月球（绕地球旋转）
+    function drawMoon(earthX, earthY) {
+        const moonX = earthX + moon.radius * Math.cos(moon.angle);
+        const moonY = earthY + moon.radius * Math.sin(moon.angle);
 
-            // 更新公转角度
-            planet.angle += planet.speed;
-        }
+        // 月球轨道
+        ctx.beginPath();
+        ctx.arc(earthX, earthY, moon.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = '#222';
+        ctx.stroke();
 
-        // 动画主循环
-        function animate() {
-            // 清空画布
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // 绘制太阳
-            drawSun();
+        // 月球
+        ctx.beginPath();
+        ctx.arc(moonX, moonY, moon.size, 0, Math.PI * 2);
+        ctx.fillStyle = moon.color;
+        ctx.fill();
 
-            // 遍历绘制所有轨道和行星
-            planets.forEach(planet => {
-                drawOrbit(planet.radius);
-                drawPlanet(planet);
-            });
+        moon.angle += moon.speed;
+    }
 
-            // 持续渲染动画
-            requestAnimationFrame(animate);
-        }
+    // 动画主循环
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        drawSun();
 
-        // 启动动画
-        animate();
-    </script>
+        planets.forEach(planet => {
+            drawOrbit(planet.radius);
+            drawPlanet(planet);
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    // 启动
+    animate();
+</script>
 </body>
 </html>
